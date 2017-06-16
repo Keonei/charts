@@ -4,22 +4,45 @@
   // Set a callback to run when the Google Visualization API is loaded.
   google.charts.setOnLoadCallback(drawBasic);
 
+var toppingCounter = {
+  tomato: 6,
+  pepperoni: 7,
+  shrimp: 1,
+  pineapple: 6,
+  peppers: 4
+ }
+
+
+window.onload = function() {
+  document.getElementById("pineapple").onclick = vote;
+  document.getElementById("peppers").onclick = vote;
+  document.getElementById("pepperoni").onclick = vote;
+  document.getElementById("shrimp").onclick = vote;
+  document.getElementById("tomato").onclick = vote;
+}
+
+function vote() {
+  console.log(this.id)
+  toppingCounter[this.id] = toppingCounter[this.id] + 1;
+  drawBasic();
+}
+
+
   function drawBasic() {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'People Who Like It');
 
         data.addRows([
-          ['Tomato', 6],
-          ['Pepperoni', 7],
-          ['Peppers', 4],
-          ['Shrimp', 1],
-          ['Pineapple', 6]
+          ['Tomato', toppingCounter.tomato],
+          ['Pepperoni', toppingCounter.pepperoni],
+          ['Peppers', toppingCounter.peppers],
+          ['Shrimp', toppingCounter.shrimp],
+          ['Pineapple', toppingCounter.pineapple]
         ]);
 
         var options = {
           title: 'Pizza Topping Popularity',
-          },
           hAxis: {
             title: 'Toppings',
           },
